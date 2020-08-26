@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>关于修饰符以及其链式编程 | 王金山的Blog</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="icon" href="/logo.png">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="preload" href="/assets/css/0.styles.3c4894a7.css" as="style"><link rel="preload" href="/assets/js/app.700dfb1b.js" as="script"><link rel="preload" href="/assets/js/3.ae739d6b.js" as="script"><link rel="preload" href="/assets/js/1.25d63518.js" as="script"><link rel="preload" href="/assets/js/24.de984507.js" as="script"><link rel="prefetch" href="/assets/js/10.3a4ebc45.js"><link rel="prefetch" href="/assets/js/11.cfc05b8b.js"><link rel="prefetch" href="/assets/js/12.d5db544c.js"><link rel="prefetch" href="/assets/js/13.0c6de72c.js"><link rel="prefetch" href="/assets/js/14.cef8045f.js"><link rel="prefetch" href="/assets/js/15.53af3ae2.js"><link rel="prefetch" href="/assets/js/16.f62d2e2c.js"><link rel="prefetch" href="/assets/js/17.1a0f854e.js"><link rel="prefetch" href="/assets/js/18.53fd00bf.js"><link rel="prefetch" href="/assets/js/19.4bd4aecb.js"><link rel="prefetch" href="/assets/js/20.612b9df7.js"><link rel="prefetch" href="/assets/js/21.2cfcb597.js"><link rel="prefetch" href="/assets/js/22.607eb550.js"><link rel="prefetch" href="/assets/js/23.ae088479.js"><link rel="prefetch" href="/assets/js/25.25c23dd5.js"><link rel="prefetch" href="/assets/js/26.35835dd6.js"><link rel="prefetch" href="/assets/js/27.931eb5fd.js"><link rel="prefetch" href="/assets/js/28.9672ce76.js"><link rel="prefetch" href="/assets/js/29.ece16506.js"><link rel="prefetch" href="/assets/js/30.2b737370.js"><link rel="prefetch" href="/assets/js/31.c58700c0.js"><link rel="prefetch" href="/assets/js/32.b1baa604.js"><link rel="prefetch" href="/assets/js/4.cd210588.js"><link rel="prefetch" href="/assets/js/5.15e960da.js"><link rel="prefetch" href="/assets/js/6.58d00f9d.js"><link rel="prefetch" href="/assets/js/7.d7a47c14.js"><link rel="prefetch" href="/assets/js/8.a75c98ce.js"><link rel="prefetch" href="/assets/js/9.77ca653a.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.3c4894a7.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-dad8a512><div data-v-dad8a512><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-dad8a512 data-v-dad8a512><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-64685f0e data-v-dad8a512 data-v-dad8a512><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>王金山的Blog</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>王金山</span>
+            
+          <!---->
+          2020
+        </a></span></div></div> <div class="hide" data-v-dad8a512><header class="navbar" data-v-dad8a512><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="王金山的Blog" class="logo"> <span class="site-name">王金山的Blog</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  Home
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      Category
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Javascript/" class="nav-link"><i class="iconfont undefined"></i>
+  Javascript
+</a></li><li class="dropdown-item"><!----> <a href="/categories/CSS/" class="nav-link"><i class="iconfont undefined"></i>
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Vue/" class="nav-link"><i class="iconfont undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Secret/" class="nav-link"><i class="iconfont undefined"></i>
+  Secret
+</a></li></ul></div></div><div class="nav-item"><a href="/docs/theme-reco/" class="nav-link"><i class="iconfont undefined"></i>
+  Who Am I
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/WGMwangjinshan" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-dad8a512></div> <aside class="sidebar" data-v-dad8a512><div class="personal-info-wrapper" data-v-ca798c94 data-v-dad8a512><img src="/avatar.JPG" alt="author-avatar" class="personal-img" data-v-ca798c94> <h3 class="name" data-v-ca798c94>
+    王金山
+  </h3> <div class="num" data-v-ca798c94><div data-v-ca798c94><h3 data-v-ca798c94>17</h3> <h6 data-v-ca798c94>Article</h6></div> <div data-v-ca798c94><h3 data-v-ca798c94>4</h3> <h6 data-v-ca798c94>Tag</h6></div></div> <hr data-v-ca798c94></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  Home
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      Category
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Javascript/" class="nav-link"><i class="iconfont undefined"></i>
+  Javascript
+</a></li><li class="dropdown-item"><!----> <a href="/categories/CSS/" class="nav-link"><i class="iconfont undefined"></i>
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Vue/" class="nav-link"><i class="iconfont undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Secret/" class="nav-link"><i class="iconfont undefined"></i>
+  Secret
+</a></li></ul></div></div><div class="nav-item"><a href="/docs/theme-reco/" class="nav-link"><i class="iconfont undefined"></i>
+  Who Am I
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/WGMwangjinshan" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-64685f0e data-v-dad8a512><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>关于修饰符以及其链式编程</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>王金山</span>
+            
+          <!---->
+          2020
+        </a></span></div></div> <div data-v-dad8a512><main class="page"><div class="page-title" style="display:none;"><h1>关于修饰符以及其链式编程</h1> <hr> <div data-v-aa64b9d0><i class="iconfont reco-account" data-v-aa64b9d0><span data-v-aa64b9d0>王金山</span></i> <i class="iconfont reco-date" data-v-aa64b9d0><span data-v-aa64b9d0>2020-08-26</span></i> <i class="iconfont reco-eye" data-v-aa64b9d0><span id="/blogs/Vue/2020/vue7.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-aa64b9d0><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="iconfont reco-tag tags" data-v-aa64b9d0><span class="tag-item" data-v-aa64b9d0>Vue</span></i></div></div> <div class="theme-reco-content content__default" style="display:none;"><h1 id="本文从事件修饰符、按键修饰符和系统修饰符的使用以及使用他们需要注意的事项来记录。"><a href="#本文从事件修饰符、按键修饰符和系统修饰符的使用以及使用他们需要注意的事项来记录。" class="header-anchor">#</a> 本文从事件修饰符、按键修饰符和系统修饰符的使用以及使用他们需要注意的事项来记录。</h1> <p><strong>理解：修饰符就是对绑定事件的一些修饰API来达到一个方便编程人员使用的工具。</strong></p> <h2 id="事件修饰符"><a href="#事件修饰符" class="header-anchor">#</a> 事件修饰符</h2> <p>那既然是事件修饰符，就类似一些click、submit、scroll等等。对这些修饰来达成一定的目的，下面就是几个修饰符：</p> <ul><li>.stop</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 阻止冒泡事件 --&gt;
+    &lt;div class=&quot;box&quot;&gt;
+      &lt;div @click=&quot;fatherBoo&quot; class=&quot;boo&quot;&gt;
+        &lt;button @click.stop=&quot;sonBoo&quot;&gt;阻止冒泡&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><ul><li>.prevent</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>    &lt;!-- 拦截默认事件 --&gt;
+    &lt;div class=&quot;box&quot;&gt;
+      &lt;a @click.prevent=&quot;Prevent&quot; href=&quot;https://www.wangjinshan.top&quot;&gt;王金山的个人博客(如果非常想看去Home页找链接哦)&lt;/a&gt;
+    &lt;/div&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><ul><li>.capture</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!--改变冒泡的顺序（至少我是这么认为的）：--&gt;
+    &lt;div class=&quot;box&quot;&gt;
+      &lt;div class=&quot;boo1&quot; @click=&quot;Boo1&quot;&gt;
+        1
+        &lt;div class=&quot;boo2&quot; @click.capture=&quot;Boo2&quot;&gt;
+          2
+          &lt;div class=&quot;boo3&quot; @click=&quot;Boo3&quot;&gt;3&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><ul><li>.self</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>    &lt;!-- 点击自身才有效 --&gt;
+    &lt;div class=&quot;box&quot;&gt;
+      &lt;div @click.self=&quot;fatherBoo&quot; class=&quot;boo&quot;&gt;
+        &lt;button @click=&quot;sonBoo&quot;&gt;点击外面的盒子才会打印“我是爸爸”&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><ul><li>.once</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>    &lt;!-- 只会执行一次 --&gt;
+    &lt;div class=&quot;box&quot;&gt;
+      &lt;button class=&quot;onceBtn&quot; @click.once=&quot;clickOnce&quot;&gt;你就是把鼠标点坏也只会弹出来一次(●ˇ∀ˇ●)&lt;/button&gt;
+    &lt;/div&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><ul><li>.passive</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>    &lt;div class=&quot;box&quot;&gt;
+      &lt;div @scroll=&quot;scroll1&quot; class=&quot;txt&quot;&gt;
+        &lt;p v-for=&quot;i in 100&quot; :key=&quot;i&quot;&gt;吃葡萄不吐葡萄皮&lt;/p&gt;
+      &lt;/div&gt;
+      {{this.scorllNum}}
+    &lt;/div&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><div class="custom-block tip"><p>以上内容的js在这:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;script&gt;
+export default {
+  name: &quot;xiushifu&quot;,
+  data()
+  {
+    return{
+      scorllNum:0
+    }
+  },
+  methods: {
+    fatherBoo() {
+      alert(&quot;我是爸爸&quot;);
+    },
+    sonBoo() {
+      alert(&quot;我是儿子&quot;);
+    },
+    clickOnce() {
+      alert(&quot;你再点我是不会出来的，/(ㄒoㄒ)/~~&quot;);
+    },
+    Boo1()
+    {
+      alert(&quot;我是超大杯&quot;)
+    },
+    Boo2()
+    {
+      alert(&quot;我是大杯&quot;)
+    },
+    Boo3()
+    {
+      alert(&quot;我是中杯&quot;)
+    },
+    explain()
+    {
+      alert(&quot;超大杯是最大的盒子：1；大杯是中间的盒子：2；中杯是最小的盒子：3；————————至于为什么不是小杯、中杯和大杯，那应该去问奶茶店&quot;)
+    },
+    scroll1()
+    {
+      console.log(&quot;只要你滚，我就会打印&quot;);
+      this.scorllNum++
+    }
+  },
+};
+&lt;/script&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br></div></div></div> <h2 id="按键修饰符和系统修饰符"><a href="#按键修饰符和系统修饰符" class="header-anchor">#</a> 按键修饰符和系统修饰符</h2> <p>这俩我就放一块说了,因为我感觉他就是一回事啊.....其实就是抓取用户对应的按键操作,要是匹配上就触发事件.</p> <p><strong>我先说这俩货长啥样:</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;input @keyup.ctrl.67=&quot;copyThat&quot;  v-model=&quot;cunshang&quot;  type=&quot;text&quot;&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><hr> <p><strong>那都有啥呢?</strong></p> <ul><li>.enter</li> <li>.tab</li> <li>.delete (捕获“删除”和“退格”键)</li> <li>.esc</li> <li>.space</li> <li>.up</li> <li>.down</li> <li>.left</li> <li>.right</li> <li>.ctrl</li> <li>.alt</li> <li>.shift</li> <li>.meta</li></ul> <p><strong>上面这些修饰符简单易懂,身为键盘侠的你应该在你的武器上都能找到吧?除此之外官网还说了一堆按键码相关的事,我总结一下是这么个意思:&quot;你要是非要犟用按键码也成,但是不建议你这么用,因为不同系统会出问题&quot;</strong></p> <p><strong>还有几个鼠标的:</strong></p> <ul><li>.left</li> <li>.right</li> <li>.middle</li></ul> <p>这地方也没啥例子可举,但是需要注意几个地方,都是官方文档说的:</p> <div class="custom-block danger"><p>请注意修饰键与常规按键不同，在和 keyup 事件一起用时，事件触发时修饰键必须处于按下状态。换句话说，只有在按住 ctrl 的情况下释放其它按键，才能触发 keyup.ctrl。而单单释放 ctrl 也不会触发事件。如果你想要这样的行为，请为 ctrl 换用 keyCode：keyup.17。</p></div> <p><strong>最后还有一个修饰符,这个修饰符我再react里也遇见过:&quot;.exact&quot;</strong></p> <p>.exact 修饰符允许你控制由精确的系统修饰符组合触发的事件。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 即使 Alt 或 Shift 被一同按下时也会触发 --&gt;
+&lt;button v-on:click.ctrl=&quot;onClick&quot;&gt;A&lt;/button&gt;
+
+&lt;!-- 有且只有 Ctrl 被按下的时候才触发 --&gt;
+&lt;button v-on:click.ctrl.exact=&quot;onCtrlClick&quot;&gt;A&lt;/button&gt;
+
+&lt;!-- 没有任何系统修饰符被按下的时候才触发 --&gt;
+&lt;button v-on:click.exact=&quot;onClick&quot;&gt;A&lt;/button&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><div class="custom-block danger"><p>我上次用.exact是使用在路由跳转上,假如两个地址是&quot;/&quot;和&quot;/wjs&quot;,有时候就会都跳出来,这个时候对&quot;/&quot;加上.exact就好了</p></div> <h2 id="事件修饰符注意"><a href="#事件修饰符注意" class="header-anchor">#</a> 事件修饰符注意!!!</h2> <p>我们可以注意到事件修饰符每个都有自己的作用,这个时候就可以串联使用来达到最终目的,举个栗子:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;a v-on:click.stop.prevent=&quot;doThat&quot;&gt;&lt;/a&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p><strong>那都啥不能一块用呢,官方给了两句话:</strong></p> <div class="custom-block danger"><p>使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。</p></div> <div class="custom-block danger"><p>不要把 .passive 和 .prevent 一起使用，因为 .prevent 将会被忽略，同时浏览器可能会向你展示一个警告。请记住，.passive 会告诉浏览器你不想阻止事件的默认行为。</p></div> <p><strong>第一句话我感觉是逻辑关系,但是没太理解透,目前是这么理解的:</strong></p> <p><strong>prevent阻止了自己的事件本身的默认行为,而self阻止了内部的元素对自己行为的调用,如果先prevent再self就先阻止了自己的默认行为,相当于内部的也阻止了,内部点击也会因为self而导致所有的点击都失效;要是先self阻止的是内部的事件,再prevent的目标是自己??</strong></p> <p><strong>现在我只能理解到这个程度,若是有大佬评论区教我一波</strong></p> <p><strong>第二句话说的是这两个不能一起用,否则.prevent会失效,我在网上找了一定的资料,原因大致如下:</strong></p> <p><strong>之前的滚动事件是当滚动结束的时候才会触发事件,就是因为为了保护浏览器有一个操作在一直屏蔽默认的事件,再出现了.passive做了一定的优化之后,这个就给阻止事件就被解除了,如果还要给他加就会报错.</strong></p></div> <footer class="page-edit" style="display:none;"><!----> <!----></footer> <!----> <!----> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-40a3448a><li class="level-2" data-v-40a3448a><a href="/blogs/Vue/2020/vue7.html#事件修饰符" class="sidebar-link" data-v-40a3448a>事件修饰符</a></li><li class="level-2" data-v-40a3448a><a href="/blogs/Vue/2020/vue7.html#按键修饰符和系统修饰符" class="sidebar-link" data-v-40a3448a>按键修饰符和系统修饰符</a></li><li class="level-2" data-v-40a3448a><a href="/blogs/Vue/2020/vue7.html#事件修饰符注意" class="sidebar-link" data-v-40a3448a>事件修饰符注意!!!</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div></div></div>
+    <script src="/assets/js/app.700dfb1b.js" defer></script><script src="/assets/js/3.ae739d6b.js" defer></script><script src="/assets/js/1.25d63518.js" defer></script><script src="/assets/js/24.de984507.js" defer></script>
+  </body>
+</html>
