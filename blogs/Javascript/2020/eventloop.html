@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>浏览器的EventLoop | 王金山的Blog</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="icon" href="/logo.png">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="preload" href="/assets/css/0.styles.3c4894a7.css" as="style"><link rel="preload" href="/assets/js/app.99da4b39.js" as="script"><link rel="preload" href="/assets/js/3.c280d812.js" as="script"><link rel="preload" href="/assets/js/1.bd1354f6.js" as="script"><link rel="preload" href="/assets/js/13.c9e5e4ef.js" as="script"><link rel="prefetch" href="/assets/js/10.05eeaf68.js"><link rel="prefetch" href="/assets/js/11.580593c8.js"><link rel="prefetch" href="/assets/js/12.a4f3f848.js"><link rel="prefetch" href="/assets/js/14.baf50d67.js"><link rel="prefetch" href="/assets/js/15.3a4ee764.js"><link rel="prefetch" href="/assets/js/16.f5740fba.js"><link rel="prefetch" href="/assets/js/17.5cf170a4.js"><link rel="prefetch" href="/assets/js/18.b25c5bcc.js"><link rel="prefetch" href="/assets/js/19.777482fe.js"><link rel="prefetch" href="/assets/js/20.eef173ff.js"><link rel="prefetch" href="/assets/js/21.6caa928d.js"><link rel="prefetch" href="/assets/js/22.662ecb0c.js"><link rel="prefetch" href="/assets/js/23.a590e8a5.js"><link rel="prefetch" href="/assets/js/24.d02993fa.js"><link rel="prefetch" href="/assets/js/25.11bc3ec2.js"><link rel="prefetch" href="/assets/js/26.10a5427e.js"><link rel="prefetch" href="/assets/js/27.2e85d359.js"><link rel="prefetch" href="/assets/js/28.417a8bb5.js"><link rel="prefetch" href="/assets/js/29.68379ead.js"><link rel="prefetch" href="/assets/js/30.c436c3db.js"><link rel="prefetch" href="/assets/js/31.33bb44ac.js"><link rel="prefetch" href="/assets/js/32.8cf3eb93.js"><link rel="prefetch" href="/assets/js/33.30ae7b18.js"><link rel="prefetch" href="/assets/js/4.15157c83.js"><link rel="prefetch" href="/assets/js/5.41b51104.js"><link rel="prefetch" href="/assets/js/6.4c1e57e9.js"><link rel="prefetch" href="/assets/js/7.2d84a943.js"><link rel="prefetch" href="/assets/js/8.dc0fd617.js"><link rel="prefetch" href="/assets/js/9.eea18d1f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.3c4894a7.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-dad8a512><div data-v-dad8a512><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-dad8a512 data-v-dad8a512><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-64685f0e data-v-dad8a512 data-v-dad8a512><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>王金山的Blog</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>王金山</span>
+            
+          <!---->
+          2020
+        </a></span></div></div> <div class="hide" data-v-dad8a512><header class="navbar" data-v-dad8a512><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="王金山的Blog" class="logo"> <span class="site-name">王金山的Blog</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  Home
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      Category
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Javascript/" class="nav-link"><i class="iconfont undefined"></i>
+  Javascript
+</a></li><li class="dropdown-item"><!----> <a href="/categories/CSS/" class="nav-link"><i class="iconfont undefined"></i>
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Vue/" class="nav-link"><i class="iconfont undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Secret/" class="nav-link"><i class="iconfont undefined"></i>
+  Secret
+</a></li></ul></div></div><div class="nav-item"><a href="/docs/theme-reco/" class="nav-link"><i class="iconfont undefined"></i>
+  Who Am I
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/WGMwangjinshan" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-dad8a512></div> <aside class="sidebar" data-v-dad8a512><div class="personal-info-wrapper" data-v-ca798c94 data-v-dad8a512><img src="/avatar.JPG" alt="author-avatar" class="personal-img" data-v-ca798c94> <h3 class="name" data-v-ca798c94>
+    王金山
+  </h3> <div class="num" data-v-ca798c94><div data-v-ca798c94><h3 data-v-ca798c94>18</h3> <h6 data-v-ca798c94>Article</h6></div> <div data-v-ca798c94><h3 data-v-ca798c94>4</h3> <h6 data-v-ca798c94>Tag</h6></div></div> <hr data-v-ca798c94></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  Home
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      Category
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Javascript/" class="nav-link"><i class="iconfont undefined"></i>
+  Javascript
+</a></li><li class="dropdown-item"><!----> <a href="/categories/CSS/" class="nav-link"><i class="iconfont undefined"></i>
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Vue/" class="nav-link"><i class="iconfont undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Secret/" class="nav-link"><i class="iconfont undefined"></i>
+  Secret
+</a></li></ul></div></div><div class="nav-item"><a href="/docs/theme-reco/" class="nav-link"><i class="iconfont undefined"></i>
+  Who Am I
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/WGMwangjinshan" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-64685f0e data-v-dad8a512><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>浏览器的EventLoop</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>王金山</span>
+            
+          <!---->
+          2020
+        </a></span></div></div> <div data-v-dad8a512><main class="page"><div class="page-title" style="display:none;"><h1>浏览器的EventLoop</h1> <hr> <div data-v-aa64b9d0><i class="iconfont reco-account" data-v-aa64b9d0><span data-v-aa64b9d0>王金山</span></i> <i class="iconfont reco-date" data-v-aa64b9d0><span data-v-aa64b9d0>2020-08-27</span></i> <i class="iconfont reco-eye" data-v-aa64b9d0><span id="/blogs/Javascript/2020/eventloop.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-aa64b9d0><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="iconfont reco-tag tags" data-v-aa64b9d0><span class="tag-item" data-v-aa64b9d0>Javascript</span></i></div></div> <div class="theme-reco-content content__default" style="display:none;"><h2 id="注意"><a href="#注意" class="header-anchor">#</a> 注意</h2> <p>本文只讨论浏览器的EventLoop，并不包含NodeJs的EventLoop讲解，两者的事件循环方式完全不同，不要混为一谈。<strong>故全文所说的eventLoop都是特指浏览器的Event Loop</strong></p> <h2 id="浏览器的eventloop"><a href="#浏览器的eventloop" class="header-anchor">#</a> 浏览器的EventLoop</h2> <p>event loop是一种浏览器执行JS的一种方式，是一种执行模型。通过<strong>宏队列</strong>(macrotask)和<strong>微队列</strong>（microtask）来调用这个顺序。</p> <div class="custom-block danger"><p>注意这两货也可以叫做宏任务和微任务，而这两种任务都是在对异步任务做区分，不对同步的任务有限制。</p></div> <h2 id="理论知识"><a href="#理论知识" class="header-anchor">#</a> 理论知识</h2> <p>那上面既然说两者都是对异步的操作进行分类的，那么怎么对异步操作进行分类呢，下面是就是“规定”：</p> <p><strong>宏队列，macrotask，也叫tasks。</strong> 一些异步任务的回调会依次进入macro task queue，等待后续被调用，这些异步任务包括：</p> <ul><li>setTimeout</li> <li>setInterval</li> <li>requestAnimationFrame (浏览器独有)</li> <li>I/O</li> <li>UI rendering (浏览器独有)</li></ul> <p><strong>微队列，microtask，也叫jobs。</strong> 另一些异步任务的回调会依次进入micro task queue，等待后续被调用，这些异步任务包括：</p> <ul><li>Promise</li> <li>Object.observe</li> <li>MutationObserver</li></ul> <div class="custom-block danger"><p>上面只列出了浏览器的异步操作，而NodeJS独有的没写出，例如：setImmediate 、process.nextTick等等。</p></div> <h2 id="正文"><a href="#正文" class="header-anchor">#</a> 正文</h2> <p><strong>上来咱就上图！！！！</strong></p> <p><img src="/assets/img/4.b8ca1015.png" alt="image"></p> <p>看不太明了是不？，等我说完了，你再后头看看就明了了。</p> <p>在说之前我说几个概念，主线程和调用栈。Js是单线程的，所以只有一个主线程，所以有异步，异步中想调用谁的时候就会放到调用栈中，这样异步操作就会被执行。</p> <p>我口述一下JavaScript代码在浏览器上的具体运作流程：</p> <ol><li>执行全局的js同步操作，注意！！！！是同步，是全局，不是EventLoop内的事件。</li></ol> <div class="custom-block danger"><p>注意，这个地方虽然是执行同步代码，但是不代表异步代码就掠过了，是读到异步操作会根据宏微队列对异步操作的回调函数进行分类，排列的顺序就是先遇见谁就先把谁放进去。</p></div> <ol start="2"><li>全局的js同步代码执行完成之后，主线程就是空的。</li> <li>这个时候所有的异步操作已经分好类了，宏队列里和微队列里都有自己的回调函数。</li> <li>从微队列里取出首位的回调任务，然后执行，这个时候微队列长度-1.</li> <li>继续取微队列里的首个回调任务，执行。以此类推，直到把微队列里所有的任务都执行完。</li></ol> <div class="custom-block danger"><p>注意，微队列里的回调函数也可以会产生新的属于微队列的回调函数，那么就会加入到微队列尾部，也在这次执行种执行。</p></div> <ol start="6"><li>微任务执行完了之后，微任务栈为空，负责执行的调用栈也为空。</li> <li>取出宏队列种的首位任务执行。执行完毕后执行栈为空</li></ol> <div class="custom-block danger"><p>注意，这个地方只取出一个任务，也只执行一个任务，与微队列不一样。</p></div> <ol start="8"><li>重复执行4到7的步骤。。。。。直到任务都完成。</li></ol> <h2 id="练习"><a href="#练习" class="header-anchor">#</a> 练习</h2> <p><strong>上面的理论都说完了，咱们来实战练习一下，看看结果是什么呢？</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>    console.log(1);
+    setTimeout(() =&gt; {
+        console.log(2);
+        Promise.resolve().then(() =&gt; {
+            console.log(3)
+        });
+    });
+    new Promise((resolve, reject) =&gt; {
+        console.log(4)
+        resolve(5)
+    }).then((data) =&gt; {
+        console.log(data);
+    })
+    setTimeout(() =&gt; {
+        console.log(6);
+    })
+    console.log(7);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><p><strong>相信你的本本上已经有了答案，那咱们先分析一下，最后给出答案。</strong></p> <h6 id="第一步"><a href="#第一步" class="header-anchor">#</a> 第一步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>console.log(1)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>console</td> <td>无</td> <td>无</td></tr> <tr><td>无</td> <td>无</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h6 id="第二步"><a href="#第二步" class="header-anchor">#</a> 第二步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>setTimeout(() =&gt; {
+   &lt;!--这个回调函数叫做callback1，setTimeout属于宏队列，所以放到宏队列中--&gt;
+  console.log(2);
+  Promise.resolve().then(() =&gt; {
+    console.log(3)
+  });
+});
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>setTimeout</td> <td>callback1</td> <td>无</td></tr> <tr><td>无</td> <td>无</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h6 id="第三步"><a href="#第三步" class="header-anchor">#</a> 第三步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise((resolve, reject) =&gt; {
+  &lt;!--注意，这里是同步执行的，咱也不知道为啥
+  他就同步了，可能和promise的设计原理有关系
+  ，这个地方我准备再细扣--&gt;
+  console.log(4)
+  resolve(5)
+}).then((data) =&gt; {
+   &lt;!--这个回调函数叫做callback2，promise属于微队列，所以放到微队列中--&gt;
+  console.log(data);
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>promise</td> <td>callback1</td> <td>callback2</td></tr> <tr><td>无</td> <td>无</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+4
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h6 id="第四步"><a href="#第四步" class="header-anchor">#</a> 第四步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>setTimeout(() =&gt; {
+   &lt;!--这个回调函数叫做callback3，setTimeout属于宏队列，所以放到宏队列中--&gt;
+  console.log(6);
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>setTimeout</td> <td>callback1</td> <td>callback2</td></tr> <tr><td>无</td> <td>callback3</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+4
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h6 id="第五步"><a href="#第五步" class="header-anchor">#</a> 第五步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>console.log(7)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>console</td> <td>callback1</td> <td>callback2</td></tr> <tr><td>无</td> <td>callback3</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+4
+7
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><div class="custom-block tip"><p>这个地方所有的全局同步代码已经执行完，全局异步代码也分好类，现在就该进入EventLoop啦</p></div> <h6 id="第六步"><a href="#第六步" class="header-anchor">#</a> 第六步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>console.log(data)       
+&lt;!--这是callback2的代码，data是promise传过来值：5--&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>callback2</td> <td>callback1</td> <td>无</td></tr> <tr><td>无</td> <td>callback3</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+4
+7
+5
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><div class="custom-block tip"><p>微队列里的任务已经执行完了，开始调用宏队列内的任务。</p></div> <h6 id="第七步"><a href="#第七步" class="header-anchor">#</a> 第七步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!--执行宏队列中的callback1，可是发现里面还有一个promise--&gt;
+console.log(2)
+Promise.resolve().then(() =&gt; {
+给你起名callback4，promise属于微队列，放到微队列中
+            console.log(3)
+        });
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>callback1</td> <td>callback3</td> <td>callback4</td></tr> <tr><td>无</td> <td>无</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+4
+7
+5
+2
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><div class="custom-block tip"><p>发现在执行宏任务的时候有了新的微任务，就会去继续执行微任务。</p></div> <h6 id="第八步"><a href="#第八步" class="header-anchor">#</a> 第八步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!--执行微队列中的callback4--&gt;
+console.log(3)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>callback4</td> <td>callback3</td> <td></td></tr> <tr><td>无</td> <td>无</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+4
+7
+5
+2
+3
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h6 id="第九步"><a href="#第九步" class="header-anchor">#</a> 第九步</h6> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!--执行宏队列中的callback3--&gt;
+console.log(6)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>callback3</td> <td></td> <td></td></tr> <tr><td>无</td> <td>无</td> <td>无</td></tr></tbody></table> <blockquote><p>打印结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+4
+7
+5
+2
+3
+6
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h6 id="最后结果"><a href="#最后结果" class="header-anchor">#</a> 最后结果</h6> <p><strong>以上所有任务执行完，主线程、调用栈、宏队列和微队列都已经为空。</strong></p> <table><thead><tr><th>调用栈</th> <th>宏队列</th> <th>微队列</th></tr></thead> <tbody><tr><td>无</td> <td>无</td> <td>无</td></tr> <tr><td>无</td> <td>无</td> <td>无</td></tr></tbody></table> <blockquote><p>打印最终结果：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>1
+4
+7
+5
+2
+3
+6
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><hr> <p><strong>如果上面的你都理解的话，我要来个狠货了哦：</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>console.log(1);
+
+setTimeout(() =&gt; {
+  console.log(2);
+  Promise.resolve().then(() =&gt; {
+    console.log(3)
+  });
+});
+
+new Promise((resolve, reject) =&gt; {
+  console.log(4)
+  resolve(5)
+}).then((data) =&gt; {
+  console.log(data);
+  
+  Promise.resolve().then(() =&gt; {
+    console.log(6)
+  }).then(() =&gt; {
+    console.log(7)
+    
+    setTimeout(() =&gt; {
+      console.log(8)
+    }, 0);
+  });
+})
+
+setTimeout(() =&gt; {
+  console.log(9);
+})
+
+console.log(10);
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br></div></div><p><strong>先好好想想，然后用自己的答案对照标准答案，好好想想！！！！！！！</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 正确答案
+1
+4
+10
+5
+6
+7
+2
+3
+9
+8
+//答对了恭喜你完全理解了浏览器的Event Loop，如果错了，就再看步骤去，如果还是理解不了，就留言，或者给我发邮箱1113080830@qq.com
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p><a href="https://segmentfault.com/a/1190000016278115" target="_blank" rel="noopener noreferrer">本文灵感和事例都来自这，本文只是对其进行白话翻译(●ˇ∀ˇ●)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <footer class="page-edit" style="display:none;"><!----> <!----></footer> <!----> <!----> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-40a3448a><li class="level-2" data-v-40a3448a><a href="/blogs/Javascript/2020/eventloop.html#注意" class="sidebar-link" data-v-40a3448a>注意</a></li><li class="level-2" data-v-40a3448a><a href="/blogs/Javascript/2020/eventloop.html#浏览器的eventloop" class="sidebar-link" data-v-40a3448a>浏览器的EventLoop</a></li><li class="level-2" data-v-40a3448a><a href="/blogs/Javascript/2020/eventloop.html#理论知识" class="sidebar-link" data-v-40a3448a>理论知识</a></li><li class="level-2" data-v-40a3448a><a href="/blogs/Javascript/2020/eventloop.html#正文" class="sidebar-link" data-v-40a3448a>正文</a></li><li class="level-2" data-v-40a3448a><a href="/blogs/Javascript/2020/eventloop.html#练习" class="sidebar-link" data-v-40a3448a>练习</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div></div></div>
+    <script src="/assets/js/app.99da4b39.js" defer></script><script src="/assets/js/3.c280d812.js" defer></script><script src="/assets/js/1.bd1354f6.js" defer></script><script src="/assets/js/13.c9e5e4ef.js" defer></script>
+  </body>
+</html>
